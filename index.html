@@ -66,6 +66,88 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-design-pattern-Borg-pattern" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/20/design-pattern-Borg-pattern/" class="article-date">
+  <time datetime="2019-08-20T07:31:45.000Z" itemprop="datePublished">2019-08-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/20/design-pattern-Borg-pattern/">design pattern - Borg pattern</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Borg模式（Monostate）："><a href="#Borg模式（Monostate）：" class="headerlink" title="Borg模式（Monostate）："></a><strong>Borg模式（Monostate）</strong>：</h2><p>实现单例行为，某个类的多个对象共享相同的状态。</p>
+<p>在python中，对象的属性是存在于<strong>dict</strong>中，只要在<strong>init</strong>函数中，将一个共享状态字典取代<strong>dict</strong>，就可以实现多个实例共享属性。</p>
+<p>该模式在管理数据库连接时非常有用。</p>
+<hr>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">class Borg(object):</span><br><span class="line">    __shared_state = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.__dict__ = self.__shared_state</span><br><span class="line">        self.state = &apos;Init&apos;</span><br><span class="line"></span><br><span class="line">    def __str__(self):</span><br><span class="line">        return self.state</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class YourBorg(Borg):</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    rm1 = Borg()</span><br><span class="line">    rm2 = Borg()</span><br><span class="line"></span><br><span class="line">    rm1.state = &apos;Idle&apos;</span><br><span class="line">    rm2.state = &apos;Running&apos;</span><br><span class="line"></span><br><span class="line">    print(&apos;rm1: &#123;0&#125;&apos;.format(rm1))</span><br><span class="line">    print(&apos;rm2: &#123;0&#125;&apos;.format(rm2))</span><br><span class="line"></span><br><span class="line">    rm2.state = &apos;Zombie&apos;</span><br><span class="line"></span><br><span class="line">    print(&apos;rm1: &#123;0&#125;&apos;.format(rm1))</span><br><span class="line">    print(&apos;rm2: &#123;0&#125;&apos;.format(rm2))</span><br><span class="line"></span><br><span class="line">    print(&apos;rm1 id: &#123;0&#125;&apos;.format(id(rm1)))</span><br><span class="line">    print(&apos;rm2 id: &#123;0&#125;&apos;.format(id(rm2)))</span><br><span class="line"></span><br><span class="line">    rm3 = YourBorg()</span><br><span class="line"></span><br><span class="line">    print(&apos;rm1: &#123;0&#125;&apos;.format(rm1))</span><br><span class="line">    print(&apos;rm2: &#123;0&#125;&apos;.format(rm2))</span><br><span class="line">    print(&apos;rm3: &#123;0&#125;&apos;.format(rm3))</span><br></pre></td></tr></table></figure>
+
+<h2 id="OUTPUT"><a href="#OUTPUT" class="headerlink" title="OUTPUT"></a>OUTPUT</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">rm1: Running</span><br><span class="line">rm2: Running</span><br><span class="line">rm1: Zombie</span><br><span class="line">rm2: Zombie</span><br><span class="line">rm1 id: 140732837899224</span><br><span class="line">rm2 id: 140732837899296</span><br><span class="line">rm1: Init</span><br><span class="line">rm2: Init</span><br><span class="line">rm3: Init</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/20/design-pattern-Borg-pattern/" data-id="cjzjigerl0000ecommp2b9f0t" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-design-pattern-abstract-factory-pattern" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/20/design-pattern-abstract-factory-pattern/" class="article-date">
+  <time datetime="2019-08-20T07:30:00.000Z" itemprop="datePublished">2019-08-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/20/design-pattern-abstract-factory-pattern/">design pattern - abstract factory pattern</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="抽象工厂模式："><a href="#抽象工厂模式：" class="headerlink" title="抽象工厂模式："></a><strong>抽象工厂模式</strong>：</h2><p>首先定义一个工厂类，该类的输入参数为子类的类名，在该类方法中实例化具体子类对象，并调用子类共同的方法；最后定义各个子类并继承于工厂类，在各个子类中实现相同的方法。</p>
+<hr>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现:"></a><strong>代码实现:</strong></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">import random</span><br><span class="line"></span><br><span class="line">class PetShop(object):</span><br><span class="line"></span><br><span class="line">    &quot;&quot;&quot;A pet shop&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    def __init__(self, animal_factory=None):</span><br><span class="line">        &quot;&quot;&quot;pet_factory is our abstract factory.  We can set it at will.&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">        self.pet_factory = animal_factory</span><br><span class="line"></span><br><span class="line">    def show_pet(self):</span><br><span class="line">        &quot;&quot;&quot;Creates and shows a pet using the abstract factory&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">        pet = self.pet_factory()</span><br><span class="line">        print(&quot;We have a lovely &#123;&#125;&quot;.format(pet))</span><br><span class="line">        print(&quot;It says &#123;&#125;&quot;.format(pet.speak()))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Dog(object):</span><br><span class="line">    def speak(self):</span><br><span class="line">        return &quot;woof&quot;</span><br><span class="line"></span><br><span class="line">    def __str__(self):</span><br><span class="line">        return &quot;Dog&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Cat(object):</span><br><span class="line">    def speak(self):</span><br><span class="line">        return &quot;meow&quot;</span><br><span class="line"></span><br><span class="line">    def __str__(self):</span><br><span class="line">        return &quot;Cat&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Additional factories:</span><br><span class="line"></span><br><span class="line"># Create a random animal</span><br><span class="line">def random_animal():</span><br><span class="line">    &quot;&quot;&quot;Let&apos;s be dynamic!&quot;&quot;&quot;</span><br><span class="line">    return random.choice([Dog, Cat])()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Show pets with various factories</span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line"></span><br><span class="line">    # A Shop that sells only cats</span><br><span class="line">    cat_shop = PetShop(Cat)</span><br><span class="line">    cat_shop.show_pet()</span><br><span class="line">    print(&quot;&quot;)</span><br><span class="line"></span><br><span class="line">    # A shop that sells random animals</span><br><span class="line">    shop = PetShop(random_animal)</span><br><span class="line">    for i in range(3):</span><br><span class="line">        shop.show_pet()</span><br><span class="line">        print(&quot;=&quot; * 20)</span><br></pre></td></tr></table></figure>
+
+<h2 id="OUTPUT"><a href="#OUTPUT" class="headerlink" title="OUTPUT"></a>OUTPUT</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">We have a lovely Cat</span><br><span class="line">It says meow</span><br><span class="line"></span><br><span class="line">We have a lovely Dog</span><br><span class="line">It says woof</span><br><span class="line"></span><br><span class="line">We have a lovely Cat</span><br><span class="line">It says meow</span><br><span class="line"></span><br><span class="line">We have a lovely Cat</span><br><span class="line">It says meow</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/20/design-pattern-abstract-factory-pattern/" data-id="cjzjigesf0001ecomtaymresz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-markdown-note" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/08/19/markdown-note/" class="article-date">
@@ -153,7 +235,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/19/markdown-note/" data-id="cjzid6tnq0000msom0nrsuydt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/19/markdown-note/" data-id="cjzjigeso0003ecomljpykvvv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -202,7 +284,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/14/hello-world/" data-id="cjzid6toa0001msomqi6j5i1j" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/14/hello-world/" data-id="cjzjigesj0002ecomyyosmd1b" class="article-share-link">Share</a>
       
       
     </footer>
@@ -241,6 +323,14 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/08/20/design-pattern-Borg-pattern/">design pattern - Borg pattern</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/20/design-pattern-abstract-factory-pattern/">design pattern - abstract factory pattern</a>
+          </li>
         
           <li>
             <a href="/2019/08/19/markdown-note/">markdown_note</a>
