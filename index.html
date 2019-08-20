@@ -153,6 +153,80 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-file-basic-operate" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/21/file-basic-operate/">file basic operate</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/21/file-basic-operate/" class="archive-article-date">
+  	<time datetime="2019-08-20T16:45:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="使用print-函数的输出重定向到一个文件中"><a href="#使用print-函数的输出重定向到一个文件中" class="headerlink" title="使用print()函数的输出重定向到一个文件中"></a>使用print()函数的输出<strong>重定向</strong>到一个文件中</h2><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#文件必须以文本打开</span></span><br><span class="line"> <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">'d:/test.txt'</span>, <span class="string">'wt'</span>) <span class="keyword">as</span> f: </span><br><span class="line">     print(<span class="string">'Hello World!'</span>, <span class="built_in">file</span>=f)</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用print-函数输出数据，但是想改变默认的分隔符或者行尾符"><a href="#使用print-函数输出数据，但是想改变默认的分隔符或者行尾符" class="headerlink" title="使用print()函数输出数据，但是想改变默认的分隔符或者行尾符"></a>使用print()函数输出数据，但是想改变默认的<strong>分隔符</strong>或者<strong>行尾符</strong></h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; print(<span class="string">'ACME'</span>, <span class="number">50</span>, <span class="number">91.5</span>) </span><br><span class="line">ACME <span class="number">50</span> <span class="number">91.5</span> </span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; print(<span class="string">'ACME'</span>, <span class="number">50</span>, <span class="number">91.5</span>, sep=<span class="string">','</span>) </span><br><span class="line">ACME,<span class="number">50</span>,<span class="number">91.5</span> </span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; print(<span class="string">'ACME'</span>, <span class="number">50</span>, <span class="number">91.5</span>, sep=<span class="string">','</span>, end=<span class="string">'!!\n'</span>) </span><br><span class="line">ACME,<span class="number">50</span>,<span class="number">91.5</span>!!</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用操作类文件对象的程序来操作文本或二进制字符串"><a href="#使用操作类文件对象的程序来操作文本或二进制字符串" class="headerlink" title="使用操作类文件对象的程序来操作文本或二进制字符串"></a>使用操作<strong>类文件对象</strong>的程序来操作文本或二进制字符串</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; s = io.StringIO() </span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; s.write(<span class="string">'Hello World\n'</span>) </span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; print(<span class="string">'This is a test'</span>, file=s)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; s.getvalue() </span><br><span class="line"><span class="string">'Hello World\nThis is a test\n'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; s = io.BytesIO() </span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; s.write(b<span class="string">'binary data'</span>) </span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; s.getvalue() </span><br><span class="line">b<span class="string">'binary data'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="在一个固定长度记录或者数据块的集合上迭代，而不是在一个文件中一行一行的迭代"><a href="#在一个固定长度记录或者数据块的集合上迭代，而不是在一个文件中一行一行的迭代" class="headerlink" title="在一个固定长度记录或者数据块的集合上迭代，而不是在一个文件中一行一行的迭代"></a>在一个固定长度记录或者数据块的集合上迭代，而不是在一个文件中一行一行的迭代</h2><p>文件以二进制模式打开时，通常是<strong>读取固定大小</strong>的记录,而对于文本文件，<br>一行一行的读取(默认的迭代行为) 更普遍点。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from functools import partial</span><br><span class="line"></span><br><span class="line">RECORD_SIZE = 32</span><br><span class="line"><span class="keyword">with</span> <span class="keyword">open</span>(<span class="string">'somefile.data'</span>, <span class="string">'rb'</span>) <span class="keyword">as</span> f: </span><br><span class="line">    <span class="keyword">records</span> = iter(<span class="keyword">partial</span>(f.read, RECORD_SIZE), b<span class="string">''</span>) </span><br><span class="line">    <span class="keyword">for</span> r <span class="keyword">in</span> <span class="keyword">records</span>: </span><br><span class="line">        ...</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：</p>
+<p> <strong>records</strong>对象是一个可迭代对象，它会不断的产生固定大小的数据 块，直到文件末尾。如果总记录大小不是块大小的整数倍的话，最后一个 返回元素的字节数会比<strong>期望值少</strong></p>
+<p> <strong>iter()</strong>函数有一个鲜为人知的特性就是，如果你给它传递一个可调用对象和一个 标记值，它会创建一个迭代器。这个迭代器会一直调用传入的可调用对象直到它返回 标记值为止，这时候迭代终止。在例子中,functools.partial 用来创建一个每次被调用时从文件中读取固定数目字节的可调用对象。<strong>标记值 b’’</strong> 就是当到达文件结尾时的返回值。 </p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/21/file-basic-operate/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-design-pattern-Borg-pattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
