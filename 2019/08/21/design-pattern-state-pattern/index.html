@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>file basic operate | Welcome to chatcent&#39;s blog</title>
+  <title>design pattern - state pattern | Welcome to chatcent&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="使用print()函数的输出重定向到一个文件中123#文件必须以文本打开 with open(&apos;d:/test.txt&apos;, &apos;wt&apos;) as f:      print(&apos;Hello World!&apos;, file=f)  使用print()函数输出数据，但是想改变默认的分隔符或者行尾符123456&amp;gt;&amp;gt;&amp;gt; print(&apos;ACME&apos;, 50, 91.5) ACME 50 91.5 &amp;g">
+  <meta name="description" content="状态模式: 在状态模式中，类的行为是基于它的状态改变的  允许对象在内部状态发生改变时改变它的行为，对象看起来好像修改了它的类  使用场景：   行为随状态改变而改变的场景 条件、分支语句的代替者   注意事项：在行为受状态约束的时候使用状态模式，而且状态不超过 5 个    定义各个具体状态的类 定义一个上下文类，接收每个状态类的对象 转换不同的状态，实现不同的行为  1234567891011">
 <meta property="og:type" content="article">
-<meta property="og:title" content="file basic operate">
-<meta property="og:url" content="http://yoursite.com/2019/08/21/file-basic-operate/index.html">
+<meta property="og:title" content="design pattern - state pattern">
+<meta property="og:url" content="http://yoursite.com/2019/08/21/design-pattern-state-pattern/index.html">
 <meta property="og:site_name" content="Welcome to chatcent&#39;s blog">
-<meta property="og:description" content="使用print()函数的输出重定向到一个文件中123#文件必须以文本打开 with open(&apos;d:/test.txt&apos;, &apos;wt&apos;) as f:      print(&apos;Hello World!&apos;, file=f)  使用print()函数输出数据，但是想改变默认的分隔符或者行尾符123456&amp;gt;&amp;gt;&amp;gt; print(&apos;ACME&apos;, 50, 91.5) ACME 50 91.5 &amp;g">
+<meta property="og:description" content="状态模式: 在状态模式中，类的行为是基于它的状态改变的  允许对象在内部状态发生改变时改变它的行为，对象看起来好像修改了它的类  使用场景：   行为随状态改变而改变的场景 条件、分支语句的代替者   注意事项：在行为受状态约束的时候使用状态模式，而且状态不超过 5 个    定义各个具体状态的类 定义一个上下文类，接收每个状态类的对象 转换不同的状态，实现不同的行为  1234567891011">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-20T16:58:07.448Z">
+<meta property="og:updated_time" content="2019-08-21T05:11:36.416Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="file basic operate">
-<meta name="twitter:description" content="使用print()函数的输出重定向到一个文件中123#文件必须以文本打开 with open(&apos;d:/test.txt&apos;, &apos;wt&apos;) as f:      print(&apos;Hello World!&apos;, file=f)  使用print()函数输出数据，但是想改变默认的分隔符或者行尾符123456&amp;gt;&amp;gt;&amp;gt; print(&apos;ACME&apos;, 50, 91.5) ACME 50 91.5 &amp;g">
+<meta name="twitter:title" content="design pattern - state pattern">
+<meta name="twitter:description" content="状态模式: 在状态模式中，类的行为是基于它的状态改变的  允许对象在内部状态发生改变时改变它的行为，对象看起来好像修改了它的类  使用场景：   行为随状态改变而改变的场景 条件、分支语句的代替者   注意事项：在行为受状态约束的时候使用状态模式，而且状态不超过 5 个    定义各个具体状态的类 定义一个上下文类，接收每个状态类的对象 转换不同的状态，实现不同的行为  1234567891011">
   
     <link rel="alternative" href="/atom.xml" title="Welcome to chatcent&#39;s blog" type="application/atom+xml">
   
@@ -152,39 +152,48 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-file-basic-operate" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-design-pattern-state-pattern" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      file basic operate
+      design pattern - state pattern
     </h1>
   
 
         
-        <a href="/2019/08/21/file-basic-operate/" class="archive-article-date">
-  	<time datetime="2019-08-20T16:45:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-21</time>
+        <a href="/2019/08/21/design-pattern-state-pattern/" class="archive-article-date">
+  	<time datetime="2019-08-21T05:05:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="使用print-函数的输出重定向到一个文件中"><a href="#使用print-函数的输出重定向到一个文件中" class="headerlink" title="使用print()函数的输出重定向到一个文件中"></a>使用print()函数的输出<strong>重定向</strong>到一个文件中</h2><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#文件必须以文本打开</span></span><br><span class="line"> <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">'d:/test.txt'</span>, <span class="string">'wt'</span>) <span class="keyword">as</span> f: </span><br><span class="line">     print(<span class="string">'Hello World!'</span>, <span class="built_in">file</span>=f)</span><br></pre></td></tr></table></figure>
+        <h2 id="状态模式"><a href="#状态模式" class="headerlink" title="状态模式:"></a><strong>状态模式</strong>:</h2><ul>
+<li><p>在状态模式中，类的行为是基于它的状态改变的</p>
+</li>
+<li><p>允许对象在内部状态发生改变时改变它的行为，对象看起来好像修改了它的类</p>
+</li>
+<li><p>使用场景： </p>
+<ul>
+<li>行为随状态改变而改变的场景</li>
+<li>条件、分支语句的代替者</li>
+</ul>
+</li>
+<li><p>注意事项：在行为受状态约束的时候使用状态模式，而且状态不超过 5 个</p>
+</li>
+</ul>
+<ol>
+<li>定义各个具体状态的类</li>
+<li>定义一个上下文类，接收每个状态类的对象</li>
+<li>转换不同的状态，实现不同的行为</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">State</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="string">"""Base state. This is to share functionality"""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">scan</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""Scan the dial to the next station"""</span></span><br><span class="line">        self.pos += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> self.pos == len(self.stations):</span><br><span class="line">            self.pos = <span class="number">0</span></span><br><span class="line">        print(<span class="string">u"Scanning... Station is %s %s"</span> % (self.stations[self.pos], self.name))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AmState</span><span class="params">(State)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, radio)</span>:</span></span><br><span class="line">        self.radio = radio</span><br><span class="line">        self.stations = [<span class="string">"1250"</span>, <span class="string">"1380"</span>, <span class="string">"1510"</span>]</span><br><span class="line">        self.pos = <span class="number">0</span></span><br><span class="line">        self.name = <span class="string">"AM"</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">toggle_amfm</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">u"Switching to FM"</span>)</span><br><span class="line">        self.radio.state = self.radio.fmstate</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FmState</span><span class="params">(State)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, radio)</span>:</span></span><br><span class="line">        self.radio = radio</span><br><span class="line">        self.stations = [<span class="string">"81.3"</span>, <span class="string">"89.1"</span>, <span class="string">"103.9"</span>]</span><br><span class="line">        self.pos = <span class="number">0</span></span><br><span class="line">        self.name = <span class="string">"FM"</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">toggle_amfm</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">u"Switching to AM"</span>)</span><br><span class="line">        self.radio.state = self.radio.amstate</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Radio</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="string">"""A radio.     It has a scan button, and an AM/FM toggle switch."""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""We have an AM state and an FM state"""</span></span><br><span class="line">        self.amstate = AmState(self)</span><br><span class="line">        self.fmstate = FmState(self)</span><br><span class="line">        self.state = self.amstate</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">toggle_amfm</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.state.toggle_amfm()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">scan</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.state.scan()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Test our radio out</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    radio = Radio()</span><br><span class="line">    actions = [radio.scan] * <span class="number">2</span> + [radio.toggle_amfm] + [radio.scan] * <span class="number">2</span></span><br><span class="line">    actions *= <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> action <span class="keyword">in</span> actions:</span><br><span class="line">        action()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
 
-<h2 id="使用print-函数输出数据，但是想改变默认的分隔符或者行尾符"><a href="#使用print-函数输出数据，但是想改变默认的分隔符或者行尾符" class="headerlink" title="使用print()函数输出数据，但是想改变默认的分隔符或者行尾符"></a>使用print()函数输出数据，但是想改变默认的<strong>分隔符</strong>或者<strong>行尾符</strong></h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; print(<span class="string">'ACME'</span>, <span class="number">50</span>, <span class="number">91.5</span>) </span><br><span class="line">ACME <span class="number">50</span> <span class="number">91.5</span> </span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; print(<span class="string">'ACME'</span>, <span class="number">50</span>, <span class="number">91.5</span>, sep=<span class="string">','</span>) </span><br><span class="line">ACME,<span class="number">50</span>,<span class="number">91.5</span> </span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; print(<span class="string">'ACME'</span>, <span class="number">50</span>, <span class="number">91.5</span>, sep=<span class="string">','</span>, end=<span class="string">'!!\n'</span>) </span><br><span class="line">ACME,<span class="number">50</span>,<span class="number">91.5</span>!!</span><br></pre></td></tr></table></figure>
-
-<h2 id="使用操作类文件对象的程序来操作文本或二进制字符串"><a href="#使用操作类文件对象的程序来操作文本或二进制字符串" class="headerlink" title="使用操作类文件对象的程序来操作文本或二进制字符串"></a>使用操作<strong>类文件对象</strong>的程序来操作文本或二进制字符串</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; s = io.StringIO() </span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; s.write(<span class="string">'Hello World\n'</span>) </span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; print(<span class="string">'This is a test'</span>, file=s)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; s.getvalue() </span><br><span class="line"><span class="string">'Hello World\nThis is a test\n'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; s = io.BytesIO() </span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; s.write(b<span class="string">'binary data'</span>) </span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; s.getvalue() </span><br><span class="line">b<span class="string">'binary data'</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="在一个固定长度记录或者数据块的集合上迭代，而不是在一个文件中一行一行的迭代"><a href="#在一个固定长度记录或者数据块的集合上迭代，而不是在一个文件中一行一行的迭代" class="headerlink" title="在一个固定长度记录或者数据块的集合上迭代，而不是在一个文件中一行一行的迭代"></a>在一个固定长度记录或者数据块的集合上迭代，而不是在一个文件中一行一行的迭代</h2><p>文件以二进制模式打开时，通常是<strong>读取固定大小</strong>的记录,而对于文本文件，一行一行的读取(默认的迭代行为) 更普遍点。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from functools import partial</span><br><span class="line"></span><br><span class="line">RECORD_SIZE = 32</span><br><span class="line"><span class="keyword">with</span> <span class="keyword">open</span>(<span class="string">'somefile.data'</span>, <span class="string">'rb'</span>) <span class="keyword">as</span> f: </span><br><span class="line">    <span class="keyword">records</span> = iter(<span class="keyword">partial</span>(f.read, RECORD_SIZE), b<span class="string">''</span>) </span><br><span class="line">    <span class="keyword">for</span> r <span class="keyword">in</span> <span class="keyword">records</span>: </span><br><span class="line">        ...</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意</strong>：</p>
-<p> <strong>records</strong>对象是一个可迭代对象，它会不断的产生固定大小的数据块，直到文件末尾。如果总记录大小不是块大小的整数倍的话，最后一个返回元素的字节数会比<strong>期望值少</strong></p>
-<p> <strong>iter()</strong>函数有一个鲜为人知的特性就是，如果你给它传递一个可调用对象和一个标记值，它会创建一个迭代器。这个迭代器会一直调用传入的可调用对象直到它返回标记值为止，这时候迭代终止。在例子中,functools.partial用来创建一个每次被调用时从文件中读取固定数目字节的可调用对象。<strong>标记值 b’’</strong>就是当到达文件结尾时的返回值。 </p>
-
+<h2 id="OUTPUT"><a href="#OUTPUT" class="headerlink" title="OUTPUT"></a>OUTPUT</h2><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">Scanning</span></span>... Station is <span class="number">1380</span> AM</span><br><span class="line"><span class="function"><span class="title">Scanning</span></span>... Station is <span class="number">1510</span> AM</span><br><span class="line">Switching to FM</span><br><span class="line"><span class="function"><span class="title">Scanning</span></span>... Station is <span class="number">89.1</span> FM</span><br><span class="line"><span class="function"><span class="title">Scanning</span></span>... Station is <span class="number">103.9</span> FM</span><br><span class="line"><span class="function"><span class="title">Scanning</span></span>... Station is <span class="number">81.3</span> FM</span><br><span class="line"><span class="function"><span class="title">Scanning</span></span>... Station is <span class="number">89.1</span> FM</span><br><span class="line">Switching to AM</span><br><span class="line"><span class="function"><span class="title">Scanning</span></span>... Station is <span class="number">1250</span> AM</span><br><span class="line"><span class="function"><span class="title">Scanning</span></span>... Station is <span class="number">1380</span> AM</span><br></pre></td></tr></table></figure>
       
 
       
@@ -263,7 +272,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/21/file-basic-operate/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/21/design-pattern-state-pattern/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -277,18 +286,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/08/21/design-pattern-publish-subscibe-pattern/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          design pattern - publish subscibe pattern
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/08/20/design-pattern-Borg-pattern/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">design pattern - Borg pattern</div>
+    <a href="/2019/08/21/design-pattern-publish-subscibe-pattern/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">design pattern - publish subscibe pattern</div>
       <i class="icon-circle-right"></i>
     </a>
   
