@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>design pattern - Borg pattern | Welcome to chatcent&#39;s blog</title>
+  <title>categories | Welcome to chatcent&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Borg模式（Monostate）： 实现单例行为，某个类的多个对象共享相同的状态。 在python中，对象的属性是存在于dict中，只要在init函数中，将一个共享状态字典取代dict，就可以实现多个实例共享属性。 该模式在管理数据库连接时非常有用。   1234567891011121314151617181920212223242526272829303132333435363738clas">
-<meta property="og:type" content="article">
-<meta property="og:title" content="design pattern - Borg pattern">
-<meta property="og:url" content="http://yoursite.com/2019/08/20/design-pattern-Borg-pattern/index.html">
+  <meta name="description" content="个人学习记录">
+<meta property="og:type" content="website">
+<meta property="og:title" content="categories">
+<meta property="og:url" content="http://yoursite.com/categories/index.html">
 <meta property="og:site_name" content="Welcome to chatcent&#39;s blog">
-<meta property="og:description" content="Borg模式（Monostate）： 实现单例行为，某个类的多个对象共享相同的状态。 在python中，对象的属性是存在于dict中，只要在init函数中，将一个共享状态字典取代dict，就可以实现多个实例共享属性。 该模式在管理数据库连接时非常有用。   1234567891011121314151617181920212223242526272829303132333435363738clas">
+<meta property="og:description" content="个人学习记录">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-21T05:15:48.178Z">
+<meta property="og:updated_time" content="2020-03-15T08:09:53.628Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="design pattern - Borg pattern">
-<meta name="twitter:description" content="Borg模式（Monostate）： 实现单例行为，某个类的多个对象共享相同的状态。 在python中，对象的属性是存在于dict中，只要在init函数中，将一个共享状态字典取代dict，就可以实现多个实例共享属性。 该模式在管理数据库连接时非常有用。   1234567891011121314151617181920212223242526272829303132333435363738clas">
+<meta name="twitter:title" content="categories">
+<meta name="twitter:description" content="个人学习记录">
   
     <link rel="alternative" href="/atom.xml" title="Welcome to chatcent&#39;s blog" type="application/atom+xml">
   
@@ -152,35 +152,27 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-design-pattern-Borg-pattern" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      design pattern - Borg pattern
+      categories
     </h1>
   
 
         
-        <a href="/2019/08/20/design-pattern-Borg-pattern/" class="archive-article-date">
-  	<time datetime="2019-08-20T07:31:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-20</time>
+        <a href="/categories/index.html" class="archive-article-date">
+  	<time datetime="2020-03-15T08:09:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Borg模式（Monostate）："><a href="#Borg模式（Monostate）：" class="headerlink" title="Borg模式（Monostate）："></a><strong>Borg模式（Monostate）</strong>：</h2><ul>
-<li>实现单例行为，某个类的多个对象共享相同的状态。</li>
-<li>在python中，对象的属性是存在于<strong>dict</strong>中，只要在<strong>init</strong>函数中，将一个共享状态字典取代<strong>dict</strong>，就可以实现多个实例共享属性。</li>
-<li>该模式在管理数据库连接时非常有用。</li>
-</ul>
-<hr>
-<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">class <span class="built_in">Borg</span>(object):</span><br><span class="line">    __shared_state = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    def <span class="built_in">__init__</span>(self):</span><br><span class="line">        self.__dict__ = self.__shared_state</span><br><span class="line">        self.state = 'Init'</span><br><span class="line"></span><br><span class="line">    def <span class="built_in">__str__</span>(self):</span><br><span class="line">        <span class="keyword">return</span> self.state</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class <span class="built_in">YourBorg</span>(Borg):</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == '__main__':</span><br><span class="line">    rm1 = <span class="built_in">Borg</span>()</span><br><span class="line">    rm2 = <span class="built_in">Borg</span>()</span><br><span class="line"></span><br><span class="line">    rm1.state = 'Idle'</span><br><span class="line">    rm2.state = 'Running'</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span>('rm1: &#123;<span class="number">0</span>&#125;'.<span class="keyword">format</span>(rm1))</span><br><span class="line">    <span class="keyword">print</span>('rm2: &#123;<span class="number">0</span>&#125;'.<span class="keyword">format</span>(rm2))</span><br><span class="line"></span><br><span class="line">    rm2.state = 'Zombie'</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span>('rm1: &#123;<span class="number">0</span>&#125;'.<span class="keyword">format</span>(rm1))</span><br><span class="line">    <span class="keyword">print</span>('rm2: &#123;<span class="number">0</span>&#125;'.<span class="keyword">format</span>(rm2))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span>('rm1 id: &#123;<span class="number">0</span>&#125;'.<span class="keyword">format</span>(<span class="built_in">id</span>(rm1)))</span><br><span class="line">    <span class="keyword">print</span>('rm2 id: &#123;<span class="number">0</span>&#125;'.<span class="keyword">format</span>(<span class="built_in">id</span>(rm2)))</span><br><span class="line"></span><br><span class="line">    rm3 = <span class="built_in">YourBorg</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span>('rm1: &#123;<span class="number">0</span>&#125;'.<span class="keyword">format</span>(rm1))</span><br><span class="line">    <span class="keyword">print</span>('rm2: &#123;<span class="number">0</span>&#125;'.<span class="keyword">format</span>(rm2))</span><br><span class="line">    <span class="keyword">print</span>('rm3: &#123;<span class="number">0</span>&#125;'.<span class="keyword">format</span>(rm3))</span><br></pre></td></tr></table></figure>
-
-<h2 id="OUTPUT"><a href="#OUTPUT" class="headerlink" title="OUTPUT"></a>OUTPUT</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">rm1:</span> Running</span><br><span class="line"><span class="string">rm2:</span> Running</span><br><span class="line"><span class="string">rm1:</span> Zombie</span><br><span class="line"><span class="string">rm2:</span> Zombie</span><br><span class="line">rm1 <span class="string">id:</span> <span class="number">140732837899224</span></span><br><span class="line">rm2 <span class="string">id:</span> <span class="number">140732837899296</span></span><br><span class="line"><span class="string">rm1:</span> Init</span><br><span class="line"><span class="string">rm2:</span> Init</span><br><span class="line"><span class="string">rm3:</span> Init</span><br></pre></td></tr></table></figure>
+        
       
 
       
@@ -259,7 +251,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/20/design-pattern-Borg-pattern/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/categories/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -271,25 +263,6 @@
 </article>
 
   
-<nav id="article-nav">
-  
-    <a href="/2019/08/21/file-basic-operate/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          file basic operate
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/08/20/design-pattern-abstract-factory-pattern/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">design pattern - abstract factory pattern</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -340,7 +313,7 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
