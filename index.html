@@ -153,6 +153,94 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-C++_note" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#C++ Note：</p>
+<p>1 endl: 结束当前行，并与设备关联的缓冲区中的内容刷新到设备中（保证所有输出真正写入到输出流中，而不是停留在内存中）。</p>
+<p>2 注释 ：”/* <em>/“不能嵌套。”/</em>“只与和它最近的”*/“匹配。</p>
+<p>3 ./a.out <infile>outfile 将标准输入输出重定向为两个文件</infile></p>
+<p>4 实参:argument</p>
+<p>5 浮点运算用double，数值范围超过int用long long</p>
+<p>6 无符号类型：当赋值一个超出范围的值时，将得到该值对无符号类型表示数值总数取模后的余数（8 bit 的unsigned char表示范围：0-255，赋值-1得到 255）</p>
+<p>7 有符号数据：当我们赋给带符号类型一个超出它表示范围的值时，结果是undefined，程序可能继续工作、可能崩溃，也可能生成垃圾数据</p>
+<p>8 浮点数：0. .001 0e0</p>
+<p>9 泛化的转义序列（36页）</p>
+<p>10 赋值操作是在两个已经存在的对象间进行的，而初始化是要创建一个新的对象，并且其初值来源于另一个已存在的对象。编译器会区别这两种情况，赋值的时候调用重载的赋值运算符，初始化的时候调用拷贝构造函数。如果类中没有拷贝构造函数，则编译器会提供一个默认的。这个默认的拷贝构造函数只是简单地复制类中的每个成员。</p>
+<p>11 列表初始化（39页）</p>
+<p>12 未显示初始化：函数内变量默认为0，函数外则为未定义</p>
+<p>13 引用并非对象，它是已存在的对象的别名, 一个引用不能绑定多个对象</p>
+<p>14指针是对象，无须赋初值，若在函数外部未初始化则为未定义</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *p = &amp;variable; </span><br><span class="line"><span class="keyword">int</span> *p = <span class="literal">nullptr</span>/<span class="number">0</span>； </span><br><span class="line"><span class="keyword">int</span> *&amp;r = p; <span class="comment">//指向指针的引用：</span></span><br></pre></td></tr></table></figure>
+
+<p>15 const对象创建后不能改变，必须初始化，作用范围尽在该文件内。若在多文件共享const变量，需要在定义和声明前都加上extern关键字。</p>
+<p>16 常量引用（指针）可以绑定非常量对象，字面值，反之不可。</p>
+<p>17 常量对象必须要用指向常量的指针。（56页）</p>
+<p>18 constexpr只对指针有效，与指针所指的对象无关（p59）</p>
+<p>19 类型别名不是简单的替换，需看作是一个整体（p61）</p>
+<p>20 字符串string：直接初始化用(), 拷贝初始化用 = </p>
+<p>21 用+连接字符串时，+号两侧必须至少有一个是string对象（从左到右运算），字面值字符串不是string对象。</p>
+<p>22 vector（p87）：初始化过程尽可能地把{}内的值当作初始值来处理，只有当类型不对时，考虑值初始化(vactor<string> v{10} 表示v里面有10个默认初始化的元素)。</string></p>
+<p>23 凡是使用了迭代器的循环体，都不要向迭代器所属的容器添加元素，否则迭代器会失效。</p>
+<p>24 数组不允许拷贝和赋值。区别： 标准库 array允许赋值拷贝（不能用花括号列表赋值给数组，只能在声明时才可以）</p>
+<p>25 四种强制类型转换p146</p>
+<p>26 函数可变数量形参：当实参类型都一样时，用initiallizer_list</p>
+<p>27 函数返回数组指针：1、使用类型别名 2、<figure class="highlight plain"><figcaption><span>（*func（paras））[dimension]```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">28 重载函数：当形参是指针或引用，通过区分指向的是常量和非常量对象可以实现重载。</span><br><span class="line"></span><br><span class="line">29 默认参数：一旦某个形参被赋予了默认值，它后面的所有形参都必须有默认值。</span><br><span class="line"></span><br><span class="line">30 assert（expr）：expr为假则输出信息并终止运行，反之什么也不做。</span><br><span class="line"></span><br><span class="line">31 this指针总是指向“这个”对象，它是一个常量指针</span><br><span class="line"></span><br><span class="line">32 class定义在第一个访问说明符之前的成员是private,struct则是public，两者定义类的唯一区别是默认的访问权限</span><br><span class="line"></span><br><span class="line">33 友元函数声明仅仅指定了访问权限，必须再外部声明多一次，友元类可以访问private成员</span><br><span class="line"></span><br><span class="line">34 一个const成员函数可以改变一个可变数据成员（在成员定义前加mutable关键字）</span><br><span class="line"></span><br><span class="line">35 静态成员函数不与任何对象绑定在一起，不包含this指针，不能声明成const p269</span><br><span class="line"></span><br><span class="line">36 类允许包含指向它自身类型的引用或指针</span><br><span class="line"></span><br><span class="line">37 两个成员相同的类也是不同的类型</span><br><span class="line"></span><br><span class="line">38 泛型算法不会执行容器的操作（不会改变底层容器的大小），运行于迭代器之上，执行迭代器的操作</span><br><span class="line"></span><br><span class="line">39 lambda表达式（未命名的内联函数）：</span><br><span class="line">```[capture lists](paras) -&gt;return type &#123;body&#125; </span><br><span class="line">/*其中，paras和return type可以省略。</span><br><span class="line">capture lists：1、只用于局部非static变量，可以直接使用局部static和函数外的变量 </span><br><span class="line">2、值捕获：在创建时拷贝，而不是调用时，随后对其修改不会改变lambda内对应的值。</span><br><span class="line">3、引用捕获：必须保证表达式执行时变量是存在的</span><br><span class="line">可变lambda：当希望改变值拷贝的变量，在参数列表前加mutable关键字*/</span><br></pre></td></tr></table></figure></p>
+<p>40 拷贝构造函数的参数必须是引用类型</p>
+<p>41 基类的指针和引用可以绑定到派生类对象（基类的指针或引用的静态类型可能与其动态类型不一致）</p>
+<p>42 派生类向基类的自动类型转换只对指针或引用有效，在对象之间不存在类型转换（当用一个派生类对象为一个基类对象初始化或赋值，只有基类部分的成员会被拷贝/移动/赋值，派生类部分成员被忽略）</p>
+<p>43 当且仅当通过指针或引用调用虚函数，才会在运行时解析该调用，此时动态类型才有可能与静态类型不同。（调用非虚函数和通过对象调用函数都相同）</p>
+<p>44 当调用了有默认实参的虚函数，该实参值由调用的静态类型决定，如果虚函数使用了默认实参，则基类和派生类的定义的虚函数默认实参最好一致。</p>
+<p>45 派生类的成员或友元只能通过派生类对象来访问基类的protected成员。派生类对于一个基类对象的protected成员没有访问权限。</p>
+<p>46 在以下情况下你应该使用指针，一是你考虑到存在不指向任何对象的可能（在<br>这种情况下，你能够设置指针为空），二是你需要能够在不同的时刻指向不同的对象（在这种情况下，你能改变指针的指向）。如果总是指向一个对象并且一旦指向一个对象后就不会改变指向，那么你应该使用引用。当你重载某个操作符时，你应该使用引用</p>
+<p>47 关键字 inline 必须与函数定义体放在一起才能使函数成为内联，仅将 inline 放在函数声明前面不起任何作用</p>
+<p>48 一个指针或引用之索引支持多态，是因为它们并不引发内存中任何“与类型有关的内存委托操作”，会受到改变的只是它们所指向的内存的“大小和内容解释方式”</p>
+<p>49 多态：以一个public base class 的指针，寻址出一个derived class object.<br>定义纯虚函数是为了实现一个接口，起到一个规范的作用，规范派生类必须实现这个函数<br>纯虚函数的引入，是出于两个目的：<br>1、为了安全，因为避免任何需要明确但是因为不小心而导致的未知的结果，提醒子类去做应做的实现。<br>2、为了效率，不是程序执行的效率，而是为了编码的效率。</p>
+<p>50 析构函数应当是虚函数，将调用相应对象类型的析构函数，因此，如果指针指向的是子类对象，将调用子类的析构函数，然后自动调用基类的析构函数。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/02/01/C++_note/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-design-pattern-state-pattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -725,7 +813,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 chatcent
+    		&copy; 2020 chatcent
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
