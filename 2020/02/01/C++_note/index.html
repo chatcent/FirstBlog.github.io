@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>C++ note | Welcome to chatcent&#39;s blog</title>
+  <title>C++ 笔记 | Welcome to chatcent&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="1 endl: 结束当前行，并与设备关联的缓冲区中的内容刷新到设备中（保证所有输出真正写入到输出流中，而不是停留在内存中）。 2 注释 ：/* */不能嵌套。/*只与和它最近的*/匹配。 3 ./a.out outfile 将标准输入输出重定向为两个文件 4 实参:argument">
 <meta name="keywords" content="note">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++ note">
+<meta property="og:title" content="C++ 笔记">
 <meta property="og:url" content="http://yoursite.com/2020/02/01/C++_note/index.html">
 <meta property="og:site_name" content="Welcome to chatcent&#39;s blog">
 <meta property="og:description" content="1 endl: 结束当前行，并与设备关联的缓冲区中的内容刷新到设备中（保证所有输出真正写入到输出流中，而不是停留在内存中）。 2 注释 ：/* */不能嵌套。/*只与和它最近的*/匹配。 3 ./a.out outfile 将标准输入输出重定向为两个文件 4 实参:argument">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-15T09:36:12.045Z">
+<meta property="og:updated_time" content="2020-03-24T07:33:23.434Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C++ note">
+<meta name="twitter:title" content="C++ 笔记">
 <meta name="twitter:description" content="1 endl: 结束当前行，并与设备关联的缓冲区中的内容刷新到设备中（保证所有输出真正写入到输出流中，而不是停留在内存中）。 2 注释 ：/* */不能嵌套。/*只与和它最近的*/匹配。 3 ./a.out outfile 将标准输入输出重定向为两个文件 4 实参:argument">
   
   
@@ -166,7 +166,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      C++ note
+      C++ 笔记
     </h1>
   
 
@@ -237,6 +237,13 @@
 <p>48 一个指针或引用之索引支持多态，是因为它们并不引发内存中任何“与类型有关的内存委托操作”，会受到改变的只是它们所指向的内存的“大小和内容解释方式”</p>
 <p>49 多态：以一个public base class 的指针，寻址出一个derived class object.<br>定义纯虚函数是为了实现一个接口，起到一个规范的作用，规范派生类必须实现这个函数<br>纯虚函数的引入，是出于两个目的：<br>1、为了安全，因为避免任何需要明确但是因为不小心而导致的未知的结果，提醒子类去做应做的实现。<br>2、为了效率，不是程序执行的效率，而是为了编码的效率。</p>
 <p>50 析构函数应当是虚函数，将调用相应对象类型的析构函数，因此，如果指针指向的是子类对象，将调用子类的析构函数，然后自动调用基类的析构函数。</p>
+<p>51 const对象不可以调用非const成员函数（只有被声明为const的成员函数才能被一个const类对象调用，考虑const this 指针），非const对象可以调用const成员函数的。</p>
+<p>52 default构造函数：要么没有参数，要么参数都有缺省值</p>
+<p>53 explict阻止单参构造函数执行隐式类型变换</p>
+<p>54 STL的iterator前加const相当于 T* const, 而const_iterator相当于 const T* </p>
+<p>55 两个不同文件的 non-local static对象的初始化顺序不明确，当其中一个对象调用另一个对象时，用local static 代替non-local static（先创建一个函数返回该static对象的一个引用，在另一个文件调用该函数）。</p>
+<p>56 为了防止对象被拷贝，将copy构造函数和copy赋值运算符设为private并且不实现，或者继承一个含有这种成员的基类。</p>
+<p>57 受auto_ptr管理的资源只能有一个指针指向它，该指针不能被复制，若执行了copy操作，原来的指针则指向null。share_ptr为计数型智能指针，它允许复制，当指向同一个对象的多个指针被销毁时，该对象才被销毁。</p>
 
       
 
@@ -340,6 +347,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2020/03/21/mysql/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          MYSQL 笔记
+        
+      </div>
+    </a>
   
   
     <a href="/2019/08/21/design-pattern-state-pattern/" id="article-nav-older" class="article-nav-link-wrap">
