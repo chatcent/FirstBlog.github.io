@@ -6,20 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>publish subscibe pattern | Welcome to chatcent&#39;s blog</title>
+  <title>Archives: 2020/7 | Welcome to chatcent&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="发布订阅者模式: 定义一个provider类，提供订阅消息和订阅用户与否的方法 定义一个publisher类，接收provider对象，创建一个发布消息的方法（本质是向消息数组里增加消息） 定义一个subscriber类，接收provider对象，调用订阅用户与否的方法">
-<meta name="keywords" content="design pattern">
-<meta property="og:type" content="article">
-<meta property="og:title" content="publish subscibe pattern">
-<meta property="og:url" content="http://yoursite.com/2019/08/21/design-pattern-publish-subscibe-pattern/index.html">
+  <meta name="description" content="个人学习记录">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Welcome to chatcent&#39;s blog">
+<meta property="og:url" content="http://yoursite.com/archives/2020/07/index.html">
 <meta property="og:site_name" content="Welcome to chatcent&#39;s blog">
-<meta property="og:description" content="发布订阅者模式: 定义一个provider类，提供订阅消息和订阅用户与否的方法 定义一个publisher类，接收provider对象，创建一个发布消息的方法（本质是向消息数组里增加消息） 定义一个subscriber类，接收provider对象，调用订阅用户与否的方法">
+<meta property="og:description" content="个人学习记录">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-15T10:11:57.160Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="publish subscibe pattern">
-<meta name="twitter:description" content="发布订阅者模式: 定义一个provider类，提供订阅消息和订阅用户与否的方法 定义一个publisher类，接收provider对象，创建一个发布消息的方法（本质是向消息数组里增加消息） 定义一个subscriber类，接收provider对象，调用订阅用户与否的方法">
+<meta name="twitter:title" content="Welcome to chatcent&#39;s blog">
+<meta name="twitter:description" content="个人学习记录">
   
   
     <link rel="icon" href="/favicon.png">
@@ -159,186 +157,136 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-design-pattern-publish-subscibe-pattern" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      publish subscibe pattern
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/07/28/TCP_IP详解笔记/" class="archive-article-date">
+  	<time datetime="2020-07-27T17:49:51.521Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-28</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/07/28/TCP_IP详解笔记/">计算机网络笔记</a>
     </h1>
   
 
-        
-        <a href="/2019/08/21/design-pattern-publish-subscibe-pattern/" class="archive-article-date">
-  	<time datetime="2019-08-21T05:05:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="发布订阅者模式"><a href="#发布订阅者模式" class="headerlink" title="发布订阅者模式:"></a><strong>发布订阅者模式</strong>:</h2><ol>
-<li>定义一个provider类，提供订阅消息和订阅用户与否的方法</li>
-<li>定义一个publisher类，接收provider对象，创建一个发布消息的方法（本质是向消息数组里增加消息）</li>
-<li>定义一个subscriber类，接收provider对象，调用订阅用户与否的方法</li>
-</ol>
-<a id="more"></a>
-<hr>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Provider</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.msg_queue = []</span><br><span class="line">        <span class="keyword">self</span>.subscribers = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">notify</span><span class="params">(<span class="keyword">self</span>, msg)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.msg_queue.append(msg)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subscribe</span><span class="params">(<span class="keyword">self</span>, msg, subscriber)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.subscribers.setdefault(msg, []).append(subscriber)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">unsubscribe</span><span class="params">(<span class="keyword">self</span>, msg, subscriber)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.subscribers[msg].remove(subscriber)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">update</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">for</span> msg <span class="keyword">in</span> <span class="keyword">self</span>.<span class="symbol">msg_queue:</span></span><br><span class="line">            <span class="keyword">for</span> sub <span class="keyword">in</span> <span class="keyword">self</span>.subscribers.get(msg, [])<span class="symbol">:</span></span><br><span class="line">                sub.run(msg)</span><br><span class="line">        <span class="keyword">self</span>.msg_queue = []</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Publisher</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(<span class="keyword">self</span>, msg_center)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.provider = msg_center</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">publish</span><span class="params">(<span class="keyword">self</span>, msg)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.provider.notify(msg)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Subscriber</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(<span class="keyword">self</span>, name, msg_center)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.name = name</span><br><span class="line">        <span class="keyword">self</span>.provider = msg_center</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subscribe</span><span class="params">(<span class="keyword">self</span>, msg)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.provider.subscribe(msg, <span class="keyword">self</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">unsubscribe</span><span class="params">(<span class="keyword">self</span>, msg)</span></span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.provider.unsubscribe(msg, <span class="keyword">self</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(<span class="keyword">self</span>, msg)</span></span><span class="symbol">:</span></span><br><span class="line">        print(<span class="string">"&#123;&#125; got &#123;&#125;"</span>.format(<span class="keyword">self</span>.name, msg))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span></span><span class="symbol">:</span></span><br><span class="line">    message_center = Provider()</span><br><span class="line"></span><br><span class="line">    fftv = Publisher(message_center)</span><br><span class="line"></span><br><span class="line">    jim = Subscriber(<span class="string">"jim"</span>, message_center)</span><br><span class="line">    jim.subscribe(<span class="string">"cartoon"</span>)</span><br><span class="line">    jack = Subscriber(<span class="string">"jack"</span>, message_center)</span><br><span class="line">    jack.subscribe(<span class="string">"music"</span>)</span><br><span class="line">    gee = Subscriber(<span class="string">"gee"</span>, message_center)</span><br><span class="line">    gee.subscribe(<span class="string">"movie"</span>)</span><br><span class="line">    vani = Subscriber(<span class="string">"vani"</span>, message_center)</span><br><span class="line">    vani.subscribe(<span class="string">"movie"</span>)</span><br><span class="line">    vani.unsubscribe(<span class="string">"movie"</span>)</span><br><span class="line"></span><br><span class="line">    fftv.publish(<span class="string">"cartoon"</span>)</span><br><span class="line">    fftv.publish(<span class="string">"music"</span>)</span><br><span class="line">    fftv.publish(<span class="string">"ads"</span>)</span><br><span class="line">    fftv.publish(<span class="string">"movie"</span>)</span><br><span class="line">    fftv.publish(<span class="string">"cartoon"</span>)</span><br><span class="line">    fftv.publish(<span class="string">"cartoon"</span>)</span><br><span class="line">    fftv.publish(<span class="string">"movie"</span>)</span><br><span class="line">    fftv.publish(<span class="string">"blank"</span>)</span><br><span class="line"></span><br><span class="line">    message_center.update()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name_<span class="number">_</span> == <span class="string">"__main__"</span><span class="symbol">:</span></span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-
-<h2 id="OUTPUT"><a href="#OUTPUT" class="headerlink" title="OUTPUT"></a>OUTPUT</h2><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">jim </span>got cartoon</span><br><span class="line"><span class="keyword">jack </span>got music</span><br><span class="line">gee got movie</span><br><span class="line"><span class="keyword">jim </span>got cartoon</span><br><span class="line"><span class="keyword">jim </span>got cartoon</span><br><span class="line">gee got movie</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">design pattern</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">note</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/21/design-pattern-publish-subscibe-pattern/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
   
-<nav id="article-nav">
-  
-    <a href="/2019/08/21/design-pattern-state-pattern/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          state pattern
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/08/20/design-pattern-Borg-pattern/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Borg pattern</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/07/28/Reactor and Proactor/" class="archive-article-date">
+  	<time datetime="2020-07-27T17:49:51.521Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-28</time>
+</a>
         </div>
-        
-        
-    </div>
-</aside>
-
-
-
+    	 
   
-  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/07/28/Reactor and Proactor/">Reactor和Proactor</a>
+    </h1>
   
 
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">note</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/07/28/操作系统笔记/" class="archive-article-date">
+  	<time datetime="2020-07-27T17:49:51.521Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-28</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/07/28/操作系统笔记/">操作系统笔记</a>
+    </h1>
   
 
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">note</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+  
+    </div></section>
   
 
-  
+    
 
 
           </div>
@@ -361,8 +309,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Welcome to chatcent&#39;s blog">
 <meta property="og:description" content="1 endl: 结束当前行，并与设备关联的缓冲区中的内容刷新到设备中（保证所有输出真正写入到输出流中，而不是停留在内存中）。 2 注释 ：/* */不能嵌套。/*只与和它最近的*/匹配。 3 ./a.out outfile 将标准输入输出重定向为两个文件 4 实参:argument">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-24T07:33:23.434Z">
+<meta property="og:updated_time" content="2020-07-27T17:35:55.640Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++ 笔记">
 <meta name="twitter:description" content="1 endl: 结束当前行，并与设备关联的缓冲区中的内容刷新到设备中（保证所有输出真正写入到输出流中，而不是停留在内存中）。 2 注释 ：/* */不能嵌套。/*只与和它最近的*/匹配。 3 ./a.out outfile 将标准输入输出重定向为两个文件 4 实参:argument">
@@ -202,12 +202,27 @@
 <p>17 常量对象必须要用指向常量的指针。（56页）</p>
 <p>18 constexpr只对指针有效，与指针所指的对象无关（p59）</p>
 <p>19 类型别名不是简单的替换，需看作是一个整体（p61）</p>
-<p>20 字符串string：直接初始化用(), 拷贝初始化用 = </p>
+<p>20 字符串string：直接初始化用(), 拷贝初始化用 =<br>string的长度信息直接被存储在了对象的成员中，读取字符串可以直接根据这个长度来读取，所以就没必要需要结束标记了。</p>
+<p>相同的常量字符串在内存中只有一份拷贝，而字符串数组则有多份拷贝</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">char</span> *<span class="keyword">str1 </span>= <span class="string">"hello"</span></span><br><span class="line"><span class="symbol">char</span> *<span class="keyword">str2 </span>= <span class="string">"hello"</span>  //<span class="keyword">str1 </span>== <span class="keyword">str2 </span>为true</span><br></pre></td></tr></table></figure>
+
 <p>21 用+连接字符串时，+号两侧必须至少有一个是string对象（从左到右运算），字面值字符串不是string对象。</p>
 <p>22 vector（p87）：初始化过程尽可能地把{}内的值当作初始值来处理，只有当类型不对时，考虑值初始化(vactor<string> v{10} 表示v里面有10个默认初始化的元素)。</string></p>
 <p>23 凡是使用了迭代器的循环体，都不要向迭代器所属的容器添加元素，否则迭代器会失效。</p>
-<p>24 数组不允许拷贝和赋值。区别： 标准库 array允许赋值拷贝（不能用花括号列表赋值给数组，只能在声明时才可以）</p>
-<p>25 四种强制类型转换p146</p>
+<p>24 数组不允许拷贝和赋值。区别： 标准库 array允许赋值拷贝（不能用花括号列表赋值给数组，只能在声明时才可以）<br>数组作为函数的参数传递时，会退化为同类型的指针(计算大小时需注意）</p>
+<p>25 四种强制类型转换<br>用法：static_cast<type>(expression)</type></p>
+<ol>
+<li><p>static_cast：在功能上基本上与 C 风格的类型转换一样强大，含义也一样。<br>用于非多态类型的转换、 不执行运行时类型检查（转换安全性不如 dynamic_cast）、 通常用于转换数值数据类型</p>
+</li>
+<li><p>const_cast： 用于删除 const、volatile 特性</p>
+</li>
+<li><p>dynamic_cast: 它被用于安全地沿着<strong>类的继承关系</strong>向下进行类型转换，即把指向基类的指针或引用转换成指向其派生类或其兄弟类的指针或引用，失败的转换将返回空指针或者抛出异常（当对引用进行类型转换时）。</p>
+</li>
+</ol>
+<p>用于多态类型的转换、执行行运行时类型检查、只适用于指针或引用</p>
+<ol start="4">
+<li>reinterpret_cast：转换结果几乎都是执行期定义，代码很难移植。最普通的用途就是在函数指针类型之间进行转换。</li>
+</ol>
 <p>26 函数可变数量形参：当实参类型都一样时，用initiallizer_list</p>
 <p>27 函数返回数组指针：<br>1、使用类型别名<br>2、</p>
 <figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> （*func（paras））[dimension]</span><br></pre></td></tr></table></figure>
@@ -218,19 +233,19 @@
 <p>31 this指针总是指向“这个”对象，它是一个常量指针</p>
 <p>32 class定义在第一个访问说明符之前的成员是private,struct则是public，两者定义类的唯一区别是默认的访问权限</p>
 <p>33 友元函数声明仅仅指定了访问权限，必须再外部声明多一次，友元类可以访问private成员</p>
-<p>34 一个const成员函数可以改变一个可变数据成员（在成员定义前加mutable关键字）</p>
+<p>34 一个const成员函数只能读取数据成员，不能改变数据成员，但可以改变一个可变数据成员（在成员定义前加mutable关键字）<br>常量（即 const）对象可以调用 const 成员函数，而不能调用非const修饰的函数。</p>
 <p>35 静态成员函数不与任何对象绑定在一起，不包含this指针，不能声明成const p269</p>
 <p>36 类允许包含指向它自身类型的引用或指针</p>
 <p>37 两个成员相同的类也是不同的类型</p>
 <p>38 泛型算法不会执行容器的操作（不会改变底层容器的大小），运行于迭代器之上，执行迭代器的操作</p>
 <p>39 lambda表达式（未命名的内联函数）：</p>
-<figure class="highlight plain"><figcaption><span>lists](paras) ->return type &#123;body&#125; </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/*其中，paras和return type可以省略。</span><br><span class="line">capture lists：1、只用于局部非static变量，可以直接使用局部static和函数外的变量 </span><br><span class="line">2、值捕获：在创建时拷贝，而不是调用时，随后对其修改不会改变lambda内对应的值。</span><br><span class="line">3、引用捕获：必须保证表达式执行时变量是存在的</span><br><span class="line">可变lambda：当希望改变值拷贝的变量，在参数列表前加mutable关键字*/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><figcaption><span>lists](paras) ->return type &#123;body&#125; </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/*其中，paras和return type可以省略。</span><br><span class="line">capture lists：1、只用于局部非static变量，可以直接使用局部static和函数外的变量 </span><br><span class="line">2、值捕获：在创建时拷贝，而不是调用时，随后对其修改不会改变lambda内对应的值。</span><br><span class="line">3、引用捕获：必须保证表达式执行时变量是存在的</span><br><span class="line">可变lambda：当希望改变值拷贝的变量，在参数列表前加mutable关键字*/</span><br><span class="line"></span><br><span class="line">[var]表示值传递方式捕捉变量var</span><br><span class="line">[=]表示值传递方式捕捉所有父作用域的变量（包括this）</span><br><span class="line">[&amp;var]表示引用传递捕捉变量var</span><br><span class="line">[&amp;]表示引用传递捕捉所有父作用域的变量（包括this）</span><br><span class="line">[this]表示值传递方式捕捉当前的this指针。</span><br></pre></td></tr></table></figure>
 
 <p>40 拷贝构造函数的参数必须是引用类型</p>
 <p>41 基类的指针和引用可以绑定到派生类对象（基类的指针或引用的静态类型可能与其动态类型不一致）</p>
 <p>42 派生类向基类的自动类型转换只对指针或引用有效，在对象之间不存在类型转换（当用一个派生类对象为一个基类对象初始化或赋值，只有基类部分的成员会被拷贝/移动/赋值，派生类部分成员被忽略）</p>
 <p>43 当且仅当通过指针或引用调用虚函数，才会在运行时解析该调用，此时动态类型才有可能与静态类型不同。（调用非虚函数和通过对象调用函数都相同）</p>
-<p>44 当调用了有默认实参的虚函数，该实参值由调用的静态类型决定，如果虚函数使用了默认实参，则基类和派生类的定义的虚函数默认实参最好一致。</p>
+<p>44 当调用了有默认实参的虚函数，该实参值由调用的静态类型决定，如果虚函数使用了默认实参，则基类和派生类的定义的虚函数默认实参最好一致。（如果使用基类的引用或指针调用函数，使用基类定义的默认实参，即使实际运行的是派生类函数）。<br>当不需要动态绑定，使用作用域运算符::来回避虚函数机制（比如强行使用基类的虚函数）。</p>
 <p>45 派生类的成员或友元只能通过派生类对象来访问基类的protected成员。派生类对于一个基类对象的protected成员没有访问权限。</p>
 <p>46 在以下情况下你应该使用指针，一是你考虑到存在不指向任何对象的可能（在<br>这种情况下，你能够设置指针为空），二是你需要能够在不同的时刻指向不同的对象（在这种情况下，你能改变指针的指向）。如果总是指向一个对象并且一旦指向一个对象后就不会改变指向，那么你应该使用引用。当你重载某个操作符时，你应该使用引用</p>
 <p>47 关键字 inline 必须与函数定义体放在一起才能使函数成为内联，仅将 inline 放在函数声明前面不起任何作用</p>
@@ -240,10 +255,49 @@
 <p>51 const对象不可以调用非const成员函数（只有被声明为const的成员函数才能被一个const类对象调用，考虑const this 指针），非const对象可以调用const成员函数的。</p>
 <p>52 default构造函数：要么没有参数，要么参数都有缺省值</p>
 <p>53 explict阻止单参构造函数执行隐式类型变换</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test1</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Test1(<span class="keyword">int</span> n)            <span class="comment">// 普通构造函数</span></span><br><span class="line">    &#123;</span><br><span class="line">        num=n;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> num;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test2</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">Test2</span><span class="params">(<span class="keyword">int</span> n)</span>   <span class="comment">// explicit（显式）构造函数</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        num=n;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> num;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Test1 t1=<span class="number">12</span>;            <span class="comment">// 隐式调用其构造函数，成功</span></span><br><span class="line">    Test2 t2=<span class="number">12</span>;            <span class="comment">// 编译错误，不能隐式调用其构造函数</span></span><br><span class="line">    <span class="function">Test2 <span class="title">t2</span><span class="params">(<span class="number">12</span>)</span></span>;           <span class="comment">// 显式调用成功</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>54 STL的iterator前加const相当于 T* const, 而const_iterator相当于 const T* </p>
 <p>55 两个不同文件的 non-local static对象的初始化顺序不明确，当其中一个对象调用另一个对象时，用local static 代替non-local static（先创建一个函数返回该static对象的一个引用，在另一个文件调用该函数）。</p>
 <p>56 为了防止对象被拷贝，将copy构造函数和copy赋值运算符设为private并且不实现，或者继承一个含有这种成员的基类。</p>
-<p>57 受auto_ptr管理的资源只能有一个指针指向它，该指针不能被复制，若执行了copy操作，原来的指针则指向null。share_ptr为计数型智能指针，它允许复制，当指向同一个对象的多个指针被销毁时，该对象才被销毁。</p>
+<h2 id="new、delete和molloc、free"><a href="#new、delete和molloc、free" class="headerlink" title="new、delete和molloc、free"></a>new、delete和molloc、free</h2><p>malloc需要给定申请内存的大小，返回的指针需要强转。</p>
+<p>new会调用构造函数，不用指定内存大小，返回的指针不用强转。</p>
+<p>new / new[]：完成两件事，先底层调用 malloc 分了配内存，然后调用构造函数（创建对象）。</p>
+<p>delete/delete[]：也完成两件事，先调用析构函数（清理资源），然后底层调用 free 释放空间。</p>
+<p>new 在申请内存时会自动计算所需字节数，而 malloc则需我们自己输入申请内存空间的字节数。</p>
+<h2 id="union-联合"><a href="#union-联合" class="headerlink" title="union 联合"></a>union 联合</h2><p>联合（union）是一种节省空间的特殊的类，一个 union 可以有多个数据成员，但是在任意时刻只有一个数据成员可以有值。当某个成员被赋值后其他成员变为未定义状态。联合有如下特点：</p>
+<p>默认访问控制符为 public<br>可以含有构造函数、析构函数<br>不能含有引用类型的成员<br>不能继承自其他类，不能作为基类<br>不能含有虚函数<br>匿名 union 在定义所在作用域可直接访问 union 成员<br>匿名 union 不能包含 protected 成员或 private 成员<br>全局匿名联合必须是静态（static）的</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">union</span> UnionTest &#123;</span><br><span class="line">    UnionTest() : i(<span class="number">10</span>) &#123;&#125;;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">double</span> d;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">union</span> &#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">double</span> d;</span><br><span class="line">&#125;;   <span class="comment">// 全局匿名联合必须是静态（static）的</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    UnionTest u;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">union</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">double</span> d;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; u.i &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;  <span class="comment">// 输出 UnionTest 联合的 10</span></span><br><span class="line"></span><br><span class="line">    ::i = <span class="number">20</span>;                       <span class="comment">//全局的i</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; ::i &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;  <span class="comment">// 输出全局静态匿名联合的 20</span></span><br><span class="line"></span><br><span class="line">    i = <span class="number">30</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;    <span class="comment">// 输出局部匿名联合的 30</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何定义一个只能在堆上（栈上）生成对象的类？"><a href="#如何定义一个只能在堆上（栈上）生成对象的类？" class="headerlink" title="如何定义一个只能在堆上（栈上）生成对象的类？"></a>如何定义一个只能在堆上（栈上）生成对象的类？</h2><p>只能在堆上<br>方法：将析构函数设置为私有<br>原因：C++ 是静态绑定语言，编译器管理栈上对象的生命周期，编译器在为类对象分配栈空间时，会先检查类的析构函数的访问性。若析构函数不可访问，则不能在栈上创建对象。</p>
+<p>只能在栈上<br>方法：将 new 和 delete 重载为私有<br>原因：在堆上生成对象，使用 new 关键词操作，其过程分为两阶段：第一阶段，使用 new 在堆上寻找可用内存，分配给对象；第二阶段，调用构造函数生成对象。将 new 操作设置为私有，那么第一阶段就无法完成，就不能够在堆上生成对象。</p>
+<h2 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h2><p>auto_ptr<br>用拷贝的方式转移拥有权，但原有的指针会被置为nullptr，当程序访问原有指针<strong>运行时</strong>将会报错。 因此抛弃auto_ptr: 避免因潜在的内存问题导致程序崩溃.</p>
+<p>unique_ptr<br>禁止拷贝，提供移动语义，采用独占式拥有，意味着可以确保一个对象和其相应的资源同一时间只被一个 pointer 拥有。一旦拥有着被销毁或编程 empty，或开始拥有另一个对象，先前拥有的那个对象就会被销毁，其任何相应资源亦会被释放，当程序访问原有指针在<strong>编译期</strong>会报错。</p>
+<p>shared_ptr<br>多个智能指针可以共享同一个对象，对象的最末一个拥有着有责任销毁对象，并清理与该对象相关的所有资源。当指向同一个对象的多个指针被销毁时，该对象才被销毁。</p>
+<p>weak_ptr 允许你共享但不拥有某对象，一旦最末一个拥有该对象的智能指针失去了所有权，任何 weak_ptr 都会自动成空（empty）。因此，在 default 和 copy 构造函数之外，weak_ptr 只提供 “接受一个 shared_ptr” 的构造函数。</p>
+<h2 id="左值、右值引用"><a href="#左值、右值引用" class="headerlink" title="左值、右值引用"></a>左值、右值引用</h2><p>左值引用：赋值、下标、解引用、前置递增递减等表达式<br>右值引用：算术、关系、位、后置递增递减等表达式</p>
+<p>右值引用只能绑定到一个将要销毁的对象（对象移动）。<br>const左值引用能够绑定到右值上；不能将右值引用绑定到左值上。<br>变量是左值，即使是右值引用类型的变量</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> &amp;a = <span class="number">1</span>; <span class="comment">//const左值引用能够绑定到右值上</span></span><br><span class="line"><span class="keyword">int</span> &amp;&amp;a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> &amp;&amp;b = a; <span class="comment">// 错误 a是左值，不能将右值引用绑定到左值上。</span></span><br><span class="line"><span class="keyword">int</span> &amp;&amp;b = <span class="built_in">std</span>::move(a); <span class="comment">// 将左值转换为右值， 除了对a赋值和销毁之外，不能使用a</span></span><br></pre></td></tr></table></figure>
+
+<p>使用typeid随时查询一个变量的类型，typeid就会返回变量相应的type_info数据。而type_info的name成员函数可以返回类型的名字。而在C++11中，又增加了hash_code这个成员函数，返回该类型唯一的哈希值。</p>
+<p>auto不需要参数，decltype以一个普通的表达式为参数，返回该表达式的类型。<br>将获得的类型来定义另外一个变量，都在编译时进行的。</p>
+<p>构造函数不能是虚函数（因为在调用构造函数时，虚表指针并没有在对象的内存空间中，必须要构造函数调用完成后才会形成虚表指针）</p>
+<p>在 C# 中用 abstract 定义抽象类，而在 C++ 中有抽象类的概念，但是没有这个关键字。<br>抽象类被继承后，子类可以继续是抽象类，也可以是普通类，而虚基类，是含有纯虚函数的类，它如果被继承，那么子类就必须实现虚基类里面的所有纯虚函数，其子类不能是抽象类。</p>
+<p>虚函数表：在程序只读数据段</p>
+<p>标准库容器、share_ptr支持拷贝移动、IO类和unique_ptr只能移动（move函数）</p>
+<p>类中定义了的函数是隐式内联函数,声明要想成为内联函数，必须在实现处(定义处)加inline关键字</p>
+<p>虚函数依靠vptr和vtable来处理。vptr是一个指针，在类的构造函数中创建生成，并且只能用this指针来访问它，静态成员函数没有this指针，所以无法访问vptr。</p>
+<p>基类指针指向继承类对象，则调用继承类对象的函数；<br>int main()必须声明为Base类的友元，否则编译失败。 编译器报错： ptr无法访问私有函数。 当然，把基类声明为public， 继承类为private，该问题就不存在了。</p>
+<p>volatile 关键字是一种类型修饰符，用它声明的类型变量表示可以被某些编译器未知的因素（操作系统、硬件、其它线程等）更改。所以使用 volatile 告诉编译器不应对这样的对象进行优化。<br>volatile 关键字声明的变量，每次访问时都必须从内存中取出值（没有被 volatile 修饰的变量，可能由于编译器的优化，从 CPU 寄存器中取值）<br>const 可以是 volatile （如只读的状态寄存器）<br>指针可以是 volatile</p>
+<p>const只能在初始化表初始化<br>static只能在类外初始化<br>static const 如果是int的话可以在声明的时候初始化，其他情况也是必须在类外初始化</p>
+<p>不要在构造函数中调用虚函数的原因：因为父类对象会在子类之前进行构造，此时子类部分的数据成员还未初始化， 因此调用子类的虚函数是不安全的，故而C++不会进行动态联编。<br>不要在析构函数中调用虚函数的原因：析构函数是用来销毁一个对象的，在销毁一个对象时，先调用子类的析构函数，然后再调用基类的析构函数。所以在调用基类的析构函数时，派生类对象的数据成员已经“销毁”，这个时再调用子类的虚函数已经没有意义了。</p>
+<p>对于所谓的静态类型（必须先定义），类型检查主要发生在编译阶段；<br>而对于动态类型，类型检查主要发生在运行阶段。</p>
+<p>在全局或静态变量的声明中，加关键字__thread，可将变量变为线程局部存储，即每个线程都有独立的拷贝。</p>
+<p>strcpy是字符串拷贝函数，原型：</p>
+<pre><code class="char"></code></pre>
+<p>从src逐字节拷贝到dest，直到遇到’\0’结束，因为没有指定长度，可能会导致拷贝越界，造成缓冲区溢出漏洞,安全版本是strncpy函数。<br>strlen函数是计算字符串长度的函数，返回从开始到’\0’之间的字符个数。</p>
+<h2 id="extern-“C”？"><a href="#extern-“C”？" class="headerlink" title="extern “C”？"></a>extern “C”？</h2><p>C++语言支持函数重载，C语言不支持函数重载，函数被C++编译器编译后在库中的名字与C语言的不同。<br>假设某个函数原型为： void foo(int x, inty);<br>该函数被C编译器编译后在库中的名字为:  _foo<br>而C++编译器则会产生像: _foo_int_int 之类的名字。<br>为了解决此类名字匹配的问题，C++提供了C链接交换指定符号 extern “C”。</p>
+<p><a href="https://segmentfault.com/a/1190000003745529" target="_blank" rel="noopener">问题汇总</a></p>
 
       
 
@@ -358,8 +412,8 @@
     </a>
   
   
-    <a href="/2019/08/21/design-pattern-state-pattern/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">state pattern</div>
+    <a href="/2019/08/20/design_pattern/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">design patterns</div>
       <i class="icon-circle-right"></i>
     </a>
   

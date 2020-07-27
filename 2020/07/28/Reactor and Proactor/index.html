@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020 | Welcome to chatcent&#39;s blog</title>
+  <title>Reactor和Proactor | Welcome to chatcent&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="个人学习记录">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Welcome to chatcent&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/archives/2020/index.html">
+  <meta name="description" content="blocking IO在wait和copy阶段都会阻塞进程。">
+<meta name="keywords" content="note">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reactor和Proactor">
+<meta property="og:url" content="http://yoursite.com/2020/07/28/Reactor and Proactor/index.html">
 <meta property="og:site_name" content="Welcome to chatcent&#39;s blog">
-<meta property="og:description" content="个人学习记录">
+<meta property="og:description" content="blocking IO在wait和copy阶段都会阻塞进程。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-07-27T16:53:55.173Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Welcome to chatcent&#39;s blog">
-<meta name="twitter:description" content="个人学习记录">
+<meta name="twitter:title" content="Reactor和Proactor">
+<meta name="twitter:description" content="blocking IO在wait和copy阶段都会阻塞进程。">
   
   
     <link rel="icon" href="/favicon.png">
@@ -157,36 +159,69 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Reactor and Proactor" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Reactor和Proactor
+    </h1>
+  
+
+        
+        <a href="/2020/07/28/Reactor and Proactor/" class="archive-article-date">
+  	<time datetime="2020-07-27T17:49:51.521Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-28</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="blocking-IO"><a href="#blocking-IO" class="headerlink" title="blocking IO"></a>blocking IO</h2><p>在wait和copy阶段都会阻塞进程。</p>
+<a id="more"></a>
+
+<h2 id="non-blocking-IO"><a href="#non-blocking-IO" class="headerlink" title="non-blocking IO"></a>non-blocking IO</h2><p>在wait阶段会立即返回不会阻塞进程，而在copy阶段仍会阻塞进程copy数据。IO线程还是要不断的轮询socket来读取或写入。</p>
+<h2 id="synchronous-I-O"><a href="#synchronous-I-O" class="headerlink" title="synchronous I/O"></a>synchronous I/O</h2><p>IO操作过程中进程会被阻塞，直到IO操作完成。</p>
+<h2 id="asynchronous-I-O"><a href="#asynchronous-I-O" class="headerlink" title="asynchronous I/O"></a>asynchronous I/O</h2><p>IO操作过程中进程不会被阻塞，操作系统帮你完成IO操作之后直接返回给你。</p>
+<h2 id="IO-multiplexing"><a href="#IO-multiplexing" class="headerlink" title="IO multiplexing"></a>IO multiplexing</h2><p>基本原理：通过操作系统提供的select/epoll等这些函数不断的轮询所负责的所有socket，而不是让用户进程自己去轮询，注意这个socket必须先设成异步的socket，当某个socket有数据到达了，就通知用户进程。</p>
+<p>多路复用是指使用一个线程来检查多个Socket(也成文件描述符)的就绪状态，比如调用select和epoll函数，传入多个文件描述符，如果有一个文件描述符就绪，则返回，否则阻塞直到超时。所以，在高并发的场景中，比如要处理10000个连接，只需要1个线程监控就绪状态，对就绪的每个连接开一个线程处理或者直接丢到线程池处理，当然也可以用当前线程处理，那么这个IO线程可以同时管理多个连接，也就是多路复用了。</p>
+<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><p>在网络IO层面，同步异步相对于阻塞非阻塞是一个更加宏观的概念，阻塞IO，非阻塞IO，IO多路复用都属于同步IO，因为它们在内核copy数据阶段都会阻塞进程。而异步IO则不一样，当进程发起IO 操作之后，就直接返回再也不理睬了，直到操作系统内核发送一个信号，告诉进程说操作系统IO已经完成，在这整个过程中，进程完全没有被阻塞。</p>
+<h2 id="Reactor"><a href="#Reactor" class="headerlink" title="Reactor"></a>Reactor</h2><p>Reactor模式是基于<strong>同步I/O</strong>的。<br>事件分离者等待某个事件或者可应用某个操作的状态发生（比如文件描述符可读写，或者是socket可读写）,事件分离者就把这个事件传给事先注册的事件处理函数或者回调函数，由后者来做实际的读写操作。<br>步骤：<br>1、等待事件 (Reactor要做的)<br>2、发”已经可读”事件发给事先注册的事件处理者或者回调 (Reactor要做的)<br>3、读数据 (用户代码要做的)<br>4、处理数据 (用户代码要做的)</p>
+<h2 id="proactor"><a href="#proactor" class="headerlink" title="proactor"></a>proactor</h2><p>Proactor模式是和<strong>异步I/O</strong>相关的。<br>事件处理者(或者代由事件分离者）直接发起一个异步读写操作，而实际的工作是由<strong>操作系统(必须支持这个异步操作)</strong>来完成的。发起时，需要提供的参数包括用于存放读到数据的缓存区，读的数据大小，或者用于存放外发数据的缓存区，以及这个请求完后的回调函数等信息。事件分离者得知了这个请求，它默默等待这个请求的完成，然后转发完成事件给相应的事件处理者或者回调。</p>
+<p>在没有底层异步I/O API支持的操作系统，这种方法可以帮我们隐藏掉socket接口的差异(无论是性能还是其它),提供一个完全可用的统一”异步接口”。这样我们就可以开发真正平台独立的通用接口了。<br>步骤:<br>1、等待事件 (Proactor要做的)<br>2、读数据(Proactor要做的)<br>3、把数据已经准备好的消息给用户处理函数，即事件处理者(Proactor要做的)<br>4、处理数据 (用户代码要做的)</p>
+<p>##IO模型<br>同步IO：内核向应用程序通知的是IO就绪事件<br>异步IO：内核向应用程序通知的是完成事件</p>
+<p>##并发模式<br>同步：程序完全按照代码顺序执行<br>异步：程序的执行需要由系统事件来驱动（中断、信号等）</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/28/TCP_IP详解笔记/" class="archive-article-date">
-  	<time datetime="2020-07-27T17:49:51.521Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/28/TCP_IP详解笔记/">计算机网络笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -198,171 +233,115 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/07/28/Reactor and Proactor/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/28/Reactor and Proactor/" class="archive-article-date">
-  	<time datetime="2020-07-27T17:49:51.521Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-28</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2020/07/28/TCP_IP详解笔记/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          计算机网络笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/28/操作系统笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">操作系统笔记</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/28/Reactor and Proactor/">Reactor和Proactor</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">note</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/28/操作系统笔记/" class="archive-article-date">
-  	<time datetime="2020-07-27T17:49:51.521Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/28/操作系统笔记/">操作系统笔记</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">note</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/21/mysql/" class="archive-article-date">
-  	<time datetime="2020-03-21T06:12:15.214Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/21/mysql/">MYSQL 笔记</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">note</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/02/01/C++_note/" class="archive-article-date">
-  	<time datetime="2020-02-01T02:20:37.011Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/02/01/C++_note/">C++ 笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">note</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -385,8 +364,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
